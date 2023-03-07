@@ -3,7 +3,7 @@ import {View, Image, TouchableOpacity, Text} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import RNTextDetector from 'rn-text-detector';
 
-const Ocrscan = () => {
+const Ocrscan = ({navigation}) => {
   const [imageUri, setImageUri] = useState(null);
   const [textBlocks, setTextBlocks] = useState([]);
   const [filtertext,setfilterText] =useState()
@@ -27,6 +27,8 @@ const Ocrscan = () => {
     setfilterText(orderId)
       console.log('data', textValues);
       setTextBlocks(textValues);
+      // navigation
+      navigation.navigate("sample",{orderId})
     } catch (error) {
       console.log('errors', error);
     }

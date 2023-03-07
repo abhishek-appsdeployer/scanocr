@@ -1,7 +1,9 @@
 import React ,{useState} from 'react';
 import {View, Text, StyleSheet, RadioButton, TextInput,TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Entypo';
-const Sample = () => {
+const Sample = ({ route, navigation }) => {
+  const {orderId} = route.params;
+  console.log(orderId)
     const [isSelected, setSelected] = useState(1);
     const handlePress = () => {
         setSelected(!isSelected);
@@ -15,7 +17,7 @@ const Sample = () => {
 
       <View style={styles.row}>
         <Text style={(styles.left)}>Invoice number</Text>
-        <Text style={styles.right}>123456987</Text>
+        <Text style={styles.right}>{orderId}</Text>
       </View>
       <View style={styles.row}>
         <Text style={(styles.left)}>Challan date</Text>
