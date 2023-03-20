@@ -23,12 +23,33 @@ const Ocrscan = ({navigation}) => {
       const filteredTextValues = textValues.filter(text => text.toLowerCase().includes("order"));
     //   setfilterText(filteredTextValues[0])
     console.log('data', filteredTextValues);
-    const orderId = filteredTextValues[0].substring(9);
+    const orderId = filteredTextValues[0].substring(9,29);
     setfilterText(orderId)
       console.log('data', textValues);
       setTextBlocks(textValues);
+      // const orderDate= filteredTextValues.filter((e)=>e.toLowerCase().includes("order date"))
+      // console.log(orderDate)
       // navigation
-      navigation.navigate("sample",{orderId})
+
+      const obj = {};
+
+for (const str of textValues) {
+  if (str.startsWith('Order id:')) {
+    obj.orderId = str.split(': ')[1];
+  }
+  if (str.startsWith('Challan date:')) {
+    obj.challanDate = str.split(': ')[1];
+  }
+  if (str.startsWith('Challan time:')) {
+    obj.challanTime = str.split(': ')[1];
+  }
+  if (str.startsWith('Sampling location:')) {
+    obj.samplingLocation = str.split(': ')[1];
+  }
+}
+
+console.log(obj);
+      navigation.navigate("sample",obj)
     } catch (error) {
       console.log('errors', error);
     }

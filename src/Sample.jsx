@@ -1,13 +1,38 @@
-import React ,{useState} from 'react';
+import React ,{useState,useEffect} from 'react';
 import {View, Text, StyleSheet, RadioButton, TextInput,TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Entypo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Sample = ({ route, navigation }) => {
-  const {orderId} = route.params;
-  console.log(orderId)
+
+  const [apiToken, setApiToken] = useState('');
+
+  
+  const [challanDate, setChallanDate] = useState(route.params.challanDate);
+  const [challanTime, setChallanTime] = useState(route.params.challanTime);
+  const [orderId, setOrderId] = useState(route.params.orderId);
+  const [sampleLocation, setsampleLocation] = useState(route.params.sampleLocation);
+  // const {orderId} = route.params;
+  console.log(route.params.challanDate)
+  console.log(route.params.challanTime)
+  console.log(route.params.orderId)
+  console.log(route.params.sampleLocation)
+ 
     const [isSelected, setSelected] = useState(1);
     const handlePress = () => {
         setSelected(!isSelected);
       };
+
+      useEffect(() => {
+        // Retrieve the API token from local storage
+        AsyncStorage.getItem('apiToken')
+          .then((apiToken) => {
+            setApiToken(apiToken);
+            console.log("apitoken",apiToken); // Log the API token to the console
+          })
+          .catch((error) => {
+            console.error('Error retrieving API token:', error);
+          });
+      }, []);
   return (
     <View style={styles.container}>
       <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>
@@ -21,11 +46,11 @@ const Sample = ({ route, navigation }) => {
       </View>
       <View style={styles.row}>
         <Text style={(styles.left)}>Challan date</Text>
-        <Text style={styles.right}>123456987</Text>
+        <Text style={styles.right}>{challanDate}</Text>
       </View>
       <View style={styles.row}>
         <Text style={(styles.left)}>Challan Time:</Text>
-        <Text style={styles.right}>12345frtrre626256987</Text>
+        <Text style={styles.right}>{challanTime}7</Text>
       </View>
 
       <View style={styles.row}>
@@ -123,7 +148,10 @@ const Sample = ({ route, navigation }) => {
     borderBottomColor: 'black',
     paddingBottom: 0,
     paddingTop: 0,
-    fontSize: 15}}>
+    fontSize: 15}}
+    value={sampleLocation}
+    
+    >
         
     </TextInput>
       </View>

@@ -13,7 +13,7 @@ const Routes = () => {
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="Login"
         component={Login}
         options={{headerShown: false}}
         
